@@ -1,0 +1,34 @@
+﻿@page "/event-binding"
+@rendermode InteractiveServer
+
+<PageTitle>Event Binding</PageTitle>
+
+<div class="mb-3">
+    <input type="text" class="form-control" placeholder="Input" @oninput="OnInput" @onfocus="OnFocus" @onblur="OnBlur">
+    <div class="form-text">@EventMonitoringInput</div>
+</div>
+
+<div class="mb-3">
+    <button type="button" class="btn btn-primary" @onclick="OnClick"  @onmousemove="OnMouseMove">Button</button>
+    <div class="form-text">@EventMonitoringButton</div>
+</div>
+
+@code {
+    private string EventMonitoringInput = "Event monitoring input";
+    private string EventMonitoringButton = "Event monitoring button";
+
+    private void OnInput(ChangeEventArgs e) =>
+        EventMonitoringInput = $"Input value: {e.Value}";
+
+    private void OnFocus() =>
+        EventMonitoringInput = "Input focused!";
+
+    private void OnBlur() =>
+        EventMonitoringInput = "Input lost focus!";
+
+    private void OnClick() =>
+        EventMonitoringButton = "Button clicked!";
+
+    private void OnMouseMove(MouseEventArgs e) =>
+        EventMonitoringButton = $"Mouse move X value: {(int)e.ClientX} and Y value: {(int)e.ClientY}";
+}
